@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:08:01 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/10 13:47:38 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/10 14:24:59 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,19 @@ void insert_philo_data(t_data *philo_data)
         philo_data->philos[i].id = i + 1;
         philo_data->philos[i].is_full = 0;
         philo_data->philos[i].meals_eaten = 0;
-        philo_data->philos[i].data = philo_data;  
-        philo_data->philos[i].right_fork = &philo_data->forks[i];
-        philo_data->philos[i].left_fork = &philo_data->forks[(i + 1) %
-            philo_data->no_of_philos];
+        philo_data->philos[i].data = philo_data;
+        if (philo_data->philos[i].id % 2 == 0)
+        {
+            philo_data->philos[i].right_fork = &philo_data->forks[i];
+            philo_data->philos[i].left_fork = &philo_data->forks[(i + 1) %
+                philo_data->no_of_philos];
+        }
+        else
+        {
+            philo_data->philos[i].left_fork = &philo_data->forks[i];
+            philo_data->philos[i].right_fork = &philo_data->forks[(i + 1) %
+                philo_data->no_of_philos];
+        }
         i++;
     }
 }
