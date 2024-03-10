@@ -6,13 +6,13 @@
 #    By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/09 09:08:30 by mahmoud           #+#    #+#              #
-#    Updated: 2024/03/10 11:06:39 by mahmoud          ###   ########.fr        #
+#    Updated: 2024/03/10 11:27:26 by mahmoud          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 
-SOURCES = ./philo.c ./utils1.c ./utils2.c ./parsing.c ./inits.c
+SOURCES = ./philo.c ./utils1.c ./utils2.c ./parsing.c ./inits.c ./mutex_thread_ops.c
 OBJS = $(SOURCES:%.c=%.o)
 CC = cc
 RM = rm -f

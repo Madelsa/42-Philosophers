@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 09:04:50 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/10 11:06:21 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/10 13:22:55 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_data t_data;
 typedef struct s_philo
 {
     int id;
-    long no_of_meals;
+    long meals_eaten;
     int is_full;
     long last_meal;
     pthread_mutex_t *left_fork;
@@ -49,7 +49,8 @@ typedef struct s_data
 
 
 
-void    error_msg(void);
+void	*ft_calloc(size_t count, size_t size);
+void	ft_bzero(void *str, size_t len);
 long    ft_atol(const char *str);
 int     validate_input(char **av);
 void	ft_putstr_fd(char *s, int fd);
@@ -57,7 +58,17 @@ int	    ft_strcmp(const char *s1, const char *s2);
 size_t	ft_strlen(const char *str);
 int	ft_isdigit(int x);
 int	ft_usleep(size_t milliseconds);
-void insert_philo_data(t_data *philo_data, char **av);
+void insert_general_data(t_data *philo_data, char **av);
+void mutex_handle(pthread_mutex_t *mutex, char *operation);
+void	thread_handle(pthread_t *thread, void *(*func)(void *),
+		void *data, char *operation);
+void insert_philo_data(t_data *philo_data);
+
+
+
+
+
+
 
 
 
