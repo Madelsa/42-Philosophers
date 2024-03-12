@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 09:04:50 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/11 11:14:56 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/12 12:45:44 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,10 @@ typedef struct s_data
     long time_to_sleep;
     long no_of_meals;
     long start_time;
+    long no_of_threads_running;
     int sim_ended;
     int all_threads_ready;
+    pthread_t monitor_thread;
     pthread_mutex_t *forks;
     pthread_mutex_t data_mutex;
     pthread_mutex_t print_mutex;
@@ -68,6 +70,7 @@ void mutex_handle(pthread_mutex_t *mutex, char *operation);
 void	thread_handle(pthread_t *thread, void *(*func)(void *),
 		void *data, char *operation);
 void insert_philo_data(t_data *philo_data);
+void create_threads(t_data *philo_data);
 void set_int(pthread_mutex_t *mutex, int *variable, int value);
 int get_int(pthread_mutex_t *mutex, int *value);
 int	simulation_ended(t_data *philo_data);
@@ -75,7 +78,10 @@ void set_long(pthread_mutex_t *mutex, long *variable, long value);
 long get_long(pthread_mutex_t *mutex, long *value);
 void sync_threads(t_data *philo_data);
 void print_philo_status(t_philo *philos, char *str);
-
+void increment_long(pthread_mutex_t *mutex, long *value);
+int threads_running(pthread_mutex_t *mutex, long *no_of_threads_running
+    , long no_of_philos);
+void *monitor_sim(void *data);
 
 
 

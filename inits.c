@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:08:01 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/11 10:29:44 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/12 12:08:33 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void insert_general_data(t_data *philo_data, char **av)
         philo_data->no_of_meals = -1;
     philo_data->sim_ended = 0;
     philo_data->all_threads_ready = 0;
+    philo_data->no_of_threads_running = 0;
     philo_data->philos = ft_calloc(sizeof(t_philo), philo_data->no_of_philos);
     philo_data->forks = ft_calloc(sizeof(pthread_mutex_t), philo_data->no_of_philos);
     mutex_handle(&philo_data->data_mutex, "INIT");
@@ -49,6 +50,7 @@ void insert_philo_data(t_data *philo_data)
         philo_data->philos[i].is_full = 0;
         philo_data->philos[i].meals_eaten = 0;
         philo_data->philos[i].data = philo_data;
+        mutex_handle(&philo_data->philos->philos_mutex, "INIT");
         if (philo_data->philos[i].id % 2 == 0)
         {
             philo_data->philos[i].right_fork = &philo_data->forks[i];

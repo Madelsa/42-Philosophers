@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 09:00:22 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/10 13:55:04 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/12 10:37:34 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,5 @@ int main(int ac, char **av)
         return (1);
     insert_general_data(&philo_data, av);
     insert_philo_data(&philo_data);
+    create_threads(&philo_data);
 }
