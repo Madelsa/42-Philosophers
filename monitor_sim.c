@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 11:58:00 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/13 11:23:52 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/13 12:58:05 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,23 @@ int is_philo_dead(t_philo *philos)
     return (0); 
 }
 
-void *monitor_sim(void *data)
+void confirm_threads_running(t_data *philo_data)
 {
-    t_data *philo_data;
-    int i;
-
-    philo_data = (t_data *)data;
     while (1)
     {
         if (threads_running(&philo_data->data_mutex
             , &philo_data->no_of_threads_running, philo_data->no_of_philos) == 1)
             break;
     }
+}
+
+void *monitor_sim(void *data)
+{
+    t_data *philo_data;
+    int i;
+
+    philo_data = (t_data *)data;
+    confirm_threads_running(philo_data);
     while (simulation_ended(philo_data) == 0)
     {
         i = 0;
@@ -49,7 +54,6 @@ void *monitor_sim(void *data)
 			}
             else if (get_int(&philo_data->philos->philos_mutex, &philo_data->philos->is_full) == 1)
 				set_int(&philo_data->data_mutex, &philo_data->sim_ended, 1);
-
             i++;
         }
     }

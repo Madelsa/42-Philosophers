@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:28:01 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/13 12:28:27 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/13 12:51:11 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void *one_philo(void *data)
 
     philos = (t_philo*)data;
     sync_threads(philos->data);
-    // set_long(&philos->philos_mutex, &philos->last_meal, get_current_time());
-    // increment_long(&philos->data->data_mutex, &philos->data->no_of_threads_running);
     philos->last_meal = get_current_time();
     philos->data->no_of_threads_running++;
     print_philo_status(philos, "TOOK_FORK");
@@ -47,12 +45,6 @@ void eat (t_philo *philos)
     mutex_handle(&philos->left_fork->fork, "UNLOCK");
 }
 
-
-void thinking(t_philo *philos)
-{
-    print_philo_status(philos, "THINKING");
-}
-
 void *dinner_sim(void *philos_data)
 {
     t_philo *philos;
@@ -69,13 +61,12 @@ void *dinner_sim(void *philos_data)
             eat(philos);
         print_philo_status(philos, "SLEEPING");
         ft_usleep(philos->data->time_to_sleep);
-        thinking(philos);
-        
+        print_philo_status(philos, "THINKING");    
    }
    return (NULL);
 }
 
-void create_threads(t_data *philo_data)
+void create_threads2(t_data *philo_data)
 {
     int i;
 
@@ -94,6 +85,14 @@ void create_threads(t_data *philo_data)
             i++;
         }
     }
+}
+
+
+void create_threads(t_data *philo_data)
+{
+    int i;
+    
+    create_threads2(philo_data);
     thread_handle(&philo_data->monitor_thread, monitor_sim, philo_data, "CREATE");
     philo_data->start_time = get_current_time();
     set_int(&philo_data->data_mutex, &philo_data->all_threads_ready, 1);
@@ -105,6 +104,4 @@ void create_threads(t_data *philo_data)
     } 
     thread_handle(&philo_data->monitor_thread, NULL, NULL, "JOIN");
 	set_int(&philo_data->data_mutex, &philo_data->sim_ended, 1);
-
-
 }
