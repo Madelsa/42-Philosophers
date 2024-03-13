@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 11:58:00 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/12 13:14:05 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/13 11:23:52 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,11 @@ void *monitor_sim(void *data)
 				print_philo_status(&philo_data->philos[i], "DIED");
 				set_int(&philo_data->data_mutex, &philo_data->sim_ended, 1);
 			}
+            else if (get_int(&philo_data->philos->philos_mutex, &philo_data->philos->is_full) == 1)
+				set_int(&philo_data->data_mutex, &philo_data->sim_ended, 1);
+
             i++;
         }
-        
     }
     return (NULL);
 }

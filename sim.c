@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:28:01 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/12 13:22:29 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/13 11:48:45 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void *dinner_sim(void *philos_data)
     , &philos->data->no_of_threads_running);
    while (simulation_ended(philos->data) == 0)
    {
+        if (get_int(&philos->philos_mutex, &philos->is_full) == 1)
+			break ;
         eat(philos);
         print_philo_status(philos, "SLEEPING");
         ft_usleep(philos->data->time_to_sleep);

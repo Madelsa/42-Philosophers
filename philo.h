@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 09:04:50 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/12 12:45:44 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/13 11:55:07 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void increment_long(pthread_mutex_t *mutex, long *value);
 int threads_running(pthread_mutex_t *mutex, long *no_of_threads_running
     , long no_of_philos);
 void *monitor_sim(void *data);
+void free_all(t_data *philo_data);
 
 
 

@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   free_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/09 09:00:22 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/13 10:35:49 by mahmoud          ###   ########.fr       */
+/*   Created: 2024/03/13 10:31:38 by mahmoud           #+#    #+#             */
+/*   Updated: 2024/03/13 10:35:03 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int main(int ac, char **av)
+void free_all(t_data *philo_data)
 {
-    t_data philo_data;
-    (void)av;
-    if (ac < 5 || ac > 6)
-       return (ft_putstr_fd("\033[1;31mInvalid input format.\033[0m\n", 2), 1);
-    if (validate_input(av) == 1)
-        return (1);
-    insert_general_data(&philo_data, av);
-    insert_philo_data(&philo_data);
-    create_threads(&philo_data);
-    free_all(&philo_data);
+    int i;
+
+    i = 0;
+    while (i < philo_data->no_of_philos)
+    {
+        mutex_handle(&philo_data->philos->philos_mutex, "DESTROY");
+        i++;
+    }
+    mutex_handle(&philo_data->data_mutex, "DESTROY");
+    mutex_handle(&philo_data->print_mutex, "DESTROY");
+    free(philo_data->forks);
+    free(philo_data->philos);
 }
