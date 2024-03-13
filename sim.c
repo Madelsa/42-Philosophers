@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:28:01 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/13 12:51:11 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/13 13:04:13 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void *one_philo(void *data)
 
 void eat (t_philo *philos)
 {
-    mutex_handle(&philos->right_fork->fork, "LOCK");
+    mutex_ops(&philos->right_fork->fork, "LOCK");
     print_philo_status(philos, "TOOK_FORK");
     philos->right_fork->fork_id = philos->id;
-    mutex_handle(&philos->left_fork->fork, "LOCK");
+    mutex_ops(&philos->left_fork->fork, "LOCK");
     print_philo_status(philos, "TOOK_FORK");
     philos->left_fork->fork_id = philos->id;
     set_long(&philos->philos_mutex, &philos->last_meal, get_current_time());
@@ -41,8 +41,8 @@ void eat (t_philo *philos)
     if (philos->data->no_of_meals > 0
 		&& philos->meals_eaten == philos->data->no_of_meals)
 		set_int(&philos->philos_mutex, &philos->is_full, 1);
-    mutex_handle(&philos->right_fork->fork, "UNLOCK");
-    mutex_handle(&philos->left_fork->fork, "UNLOCK");
+    mutex_ops(&philos->right_fork->fork, "UNLOCK");
+    mutex_ops(&philos->left_fork->fork, "UNLOCK");
 }
 
 void *dinner_sim(void *philos_data)
@@ -74,13 +74,13 @@ void create_threads2(t_data *philo_data)
     if (philo_data->no_of_meals == 0)
         return ;
     else if (philo_data->no_of_philos == 1)
-        thread_handle(&philo_data->philos[0].thread_id, one_philo
+        thread_ops(&philo_data->philos[0].thread_id, one_philo
         , &philo_data->philos[0], "CREATE");
     else
     {
         while (i < philo_data->no_of_philos)
         {
-            thread_handle(&philo_data->philos[i].thread_id, dinner_sim,
+            thread_ops(&philo_data->philos[i].thread_id, dinner_sim,
                 &philo_data->philos[i], "CREATE");
             i++;
         }
@@ -93,15 +93,15 @@ void create_threads(t_data *philo_data)
     int i;
     
     create_threads2(philo_data);
-    thread_handle(&philo_data->monitor_thread, monitor_sim, philo_data, "CREATE");
+    thread_ops(&philo_data->monitor_thread, monitor_sim, philo_data, "CREATE");
     philo_data->start_time = get_current_time();
     set_int(&philo_data->data_mutex, &philo_data->all_threads_ready, 1);
     i = 0;
     while (i < philo_data->no_of_philos)
     {
-        thread_handle(&philo_data->philos[i].thread_id, NULL, NULL, "JOIN");
+        thread_ops(&philo_data->philos[i].thread_id, NULL, NULL, "JOIN");
         i++;
     } 
-    thread_handle(&philo_data->monitor_thread, NULL, NULL, "JOIN");
+    thread_ops(&philo_data->monitor_thread, NULL, NULL, "JOIN");
 	set_int(&philo_data->data_mutex, &philo_data->sim_ended, 1);
 }

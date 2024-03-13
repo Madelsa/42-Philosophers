@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 10:07:16 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/12 12:21:59 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/13 13:03:53 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void increment_long(pthread_mutex_t *mutex, long *value)
 {
-    mutex_handle(mutex, "LOCK");
+    mutex_ops(mutex, "LOCK");
     (*value)++;
-    mutex_handle(mutex, "UNLOCK");
+    mutex_ops(mutex, "UNLOCK");
 }
 
 void sync_threads(t_data *philo_data)
@@ -36,9 +36,9 @@ int threads_running(pthread_mutex_t *mutex, long *no_of_threads_running
     int return_value;
     
     return_value = 0;
-    mutex_handle(mutex, "LOCK");
+    mutex_ops(mutex, "LOCK");
     if (*no_of_threads_running == no_of_philos)
         return_value = 1;
-    mutex_handle(mutex, "UNLOCK");
+    mutex_ops(mutex, "UNLOCK");
     return (return_value);
 }

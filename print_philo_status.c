@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 10:28:01 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/13 11:48:36 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/13 13:03:53 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void print_philo_status(t_philo *philos, char *str)
 	time_delta = get_current_time() - philos->data->start_time; 
 	if (get_int(&philos->philos_mutex, &philos->is_full) == 1)
 		return ;
-	mutex_handle(&philos->data->print_mutex, "LOCK");
+	mutex_ops(&philos->data->print_mutex, "LOCK");
     print_status(philos, str, &time_delta);
-	mutex_handle(&philos->data->print_mutex, "UNLOCK");
+	mutex_ops(&philos->data->print_mutex, "UNLOCK");
 }
 

@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 09:04:50 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/13 12:49:54 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/13 13:04:13 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ int	ft_isdigit(int x);
 int	ft_usleep(size_t milliseconds);
 size_t	get_current_time(void);
 void insert_general_data(t_data *philo_data, char **av);
-void mutex_handle(pthread_mutex_t *mutex, char *operation);
-void	thread_handle(pthread_t *thread, void *(*func)(void *),
+void mutex_ops(pthread_mutex_t *mutex, char *operation);
+void	thread_ops(pthread_t *thread, void *(*func)(void *),
 		void *data, char *operation);
 void insert_philo_data(t_data *philo_data);
 void create_threads(t_data *philo_data);

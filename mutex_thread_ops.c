@@ -6,13 +6,13 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 11:21:33 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/10 11:40:52 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/13 13:04:13 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void mutex_handle(pthread_mutex_t *mutex, char *operation)
+void mutex_ops(pthread_mutex_t *mutex, char *operation)
 {
     if (ft_strcmp(operation, "LOCK") == 0)
         pthread_mutex_lock(mutex);
@@ -27,7 +27,7 @@ void mutex_handle(pthread_mutex_t *mutex, char *operation)
                 ("\033[1;31mOperation not found.\033[0m\n", 2));
 }
 
-void	thread_handle(pthread_t *thread, void *(*func)(void *),
+void	thread_ops(pthread_t *thread, void *(*func)(void *),
 		void *data, char *operation)
 {
 	if (ft_strcmp(operation, "CREATE") == 0)
