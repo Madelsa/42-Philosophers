@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:28:01 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/13 11:48:45 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/13 12:28:27 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ void *one_philo(void *data)
 
 void eat (t_philo *philos)
 {
-    mutex_handle(philos->right_fork, "LOCK");
+    mutex_handle(&philos->right_fork->fork, "LOCK");
     print_philo_status(philos, "TOOK_FORK");
-    mutex_handle(philos->left_fork, "LOCK");
+    philos->right_fork->fork_id = philos->id;
+    mutex_handle(&philos->left_fork->fork, "LOCK");
     print_philo_status(philos, "TOOK_FORK");
+    philos->left_fork->fork_id = philos->id;
     set_long(&philos->philos_mutex, &philos->last_meal, get_current_time());
     philos->meals_eaten++;
     print_philo_status(philos, "EATING");
@@ -41,9 +43,10 @@ void eat (t_philo *philos)
     if (philos->data->no_of_meals > 0
 		&& philos->meals_eaten == philos->data->no_of_meals)
 		set_int(&philos->philos_mutex, &philos->is_full, 1);
-    mutex_handle(philos->right_fork, "UNLOCK");
-    mutex_handle(philos->left_fork, "UNLOCK");
+    mutex_handle(&philos->right_fork->fork, "UNLOCK");
+    mutex_handle(&philos->left_fork->fork, "UNLOCK");
 }
+
 
 void thinking(t_philo *philos)
 {
@@ -62,7 +65,8 @@ void *dinner_sim(void *philos_data)
    {
         if (get_int(&philos->philos_mutex, &philos->is_full) == 1)
 			break ;
-        eat(philos);
+        if (is_greedy(philos) == 0)
+            eat(philos);
         print_philo_status(philos, "SLEEPING");
         ft_usleep(philos->data->time_to_sleep);
         thinking(philos);

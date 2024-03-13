@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 09:04:50 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/13 11:55:07 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/13 12:23:29 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,20 @@
 
 typedef struct s_data t_data;
 
+typedef struct s_fork
+{
+    int fork_id;
+    pthread_mutex_t		fork;
+}t_fork;
+
 typedef struct s_philo
 {
     int id;
     long meals_eaten;
     int is_full;
     long last_meal;
-    pthread_mutex_t *left_fork;
-    pthread_mutex_t *right_fork;
+    t_fork *left_fork;
+    t_fork *right_fork;
     pthread_mutex_t philos_mutex;
     pthread_t thread_id;
     t_data *data;
@@ -47,7 +53,7 @@ typedef struct s_data
     int sim_ended;
     int all_threads_ready;
     pthread_t monitor_thread;
-    pthread_mutex_t *forks;
+    t_fork *forks;
     pthread_mutex_t data_mutex;
     pthread_mutex_t print_mutex;
     t_philo *philos;
@@ -82,6 +88,7 @@ void increment_long(pthread_mutex_t *mutex, long *value);
 int threads_running(pthread_mutex_t *mutex, long *no_of_threads_running
     , long no_of_philos);
 void *monitor_sim(void *data);
+int is_greedy(t_philo *philos);
 void free_all(t_data *philo_data);
 
 
