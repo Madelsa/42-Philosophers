@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 09:04:50 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/13 13:04:13 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/14 11:06:57 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_philo
     int id;
     long meals_eaten;
     int is_full;
+    int is_greedy;
     long last_meal;
     t_fork *left_fork;
     t_fork *right_fork;
@@ -88,7 +89,7 @@ void increment_long(pthread_mutex_t *mutex, long *value);
 int threads_running(pthread_mutex_t *mutex, long *no_of_threads_running
     , long no_of_philos);
 void *monitor_sim(void *data);
-int is_greedy(t_philo *philos);
+void is_greedy(t_philo *philos);
 void free_all(t_data *philo_data);
 
 

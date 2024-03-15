@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 14:08:01 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/13 13:03:53 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/14 10:51:23 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void insert_philo_data(t_data *philo_data)
     {
         philo_data->philos[i].id = i + 1;
         philo_data->philos[i].is_full = 0;
+        philo_data->philos[i].is_greedy = 0;
         philo_data->philos[i].meals_eaten = 0;
         philo_data->philos[i].data = philo_data;
         mutex_ops(&philo_data->philos->philos_mutex, "INIT");

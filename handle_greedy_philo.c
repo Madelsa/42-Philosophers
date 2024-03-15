@@ -6,18 +6,24 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 12:12:31 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/13 12:23:07 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/14 11:07:53 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int is_greedy(t_philo *philos)
+void is_greedy(t_philo *philos)
 {
+    mutex_ops(&philos->data->data_mutex, "LOCK");
     if ((philos->left_fork->fork_id == philos->id) ||
         philos->right_fork->fork_id == philos->id)
     {
-        return (1);
+        mutex_ops(&philos->data->data_mutex, "UNLOCK");
+        set_int(&philos->philos_mutex, &philos->is_greedy, 1);
     }
-    return (0);
+    else
+    {
+        mutex_ops(&philos->data->data_mutex, "UNLOCK");
+        set_int(&philos->philos_mutex, &philos->is_greedy, 0);
+    }
 }

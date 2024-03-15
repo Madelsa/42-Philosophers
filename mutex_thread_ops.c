@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 11:21:33 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/13 13:04:13 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/13 15:08:42 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void	thread_ops(pthread_t *thread, void *(*func)(void *),
 		pthread_create(thread, NULL, func, data);
 	else if (ft_strcmp(operation, "JOIN") == 0)
 		pthread_join(*thread, NULL);
-	else if (ft_strcmp(operation, "DETACH") == 0)
-		pthread_detach(*thread);
 	else
 		return (ft_putstr_fd
                 ("\033[1;31mOperation not found.\033[0m\n", 2));

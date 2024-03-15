@@ -6,7 +6,7 @@
 /*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:28:01 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/13 13:04:13 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/14 11:35:50 by mahmoud          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,16 @@ void *one_philo(void *data)
 void eat (t_philo *philos)
 {
     mutex_ops(&philos->right_fork->fork, "LOCK");
-    print_philo_status(philos, "TOOK_FORK");
-    philos->right_fork->fork_id = philos->id;
     mutex_ops(&philos->left_fork->fork, "LOCK");
+    print_philo_status(philos, "TOOK_FORK");
+    set_int(&philos->data->data_mutex, &philos->right_fork->fork_id, philos->id);
+    set_int(&philos->data->data_mutex, &philos->left_fork->fork_id, philos->id);
+    // philos->right_fork->fork_id = philos->id;
+    // philos->left_fork->fork_id = philos->id;
     print_philo_status(philos, "TOOK_FORK");
     philos->left_fork->fork_id = philos->id;
     set_long(&philos->philos_mutex, &philos->last_meal, get_current_time());
-    philos->meals_eaten++;
+    increment_long(&philos->philos_mutex, &philos->meals_eaten);
     print_philo_status(philos, "EATING");
     ft_usleep(philos->data->time_to_eat);
     if (philos->data->no_of_meals > 0
@@ -44,6 +47,7 @@ void eat (t_philo *philos)
     mutex_ops(&philos->right_fork->fork, "UNLOCK");
     mutex_ops(&philos->left_fork->fork, "UNLOCK");
 }
+
 
 void *dinner_sim(void *philos_data)
 {
@@ -55,9 +59,10 @@ void *dinner_sim(void *philos_data)
     , &philos->data->no_of_threads_running);
    while (simulation_ended(philos->data) == 0)
    {
+        is_greedy(philos);
         if (get_int(&philos->philos_mutex, &philos->is_full) == 1)
 			break ;
-        if (is_greedy(philos) == 0)
+        if (get_int(&philos->philos_mutex, &philos->is_greedy) == 0)
             eat(philos);
         print_philo_status(philos, "SLEEPING");
         ft_usleep(philos->data->time_to_sleep);
