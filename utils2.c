@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabdelsa <mabdelsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 11:30:38 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/11 10:14:30 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/15 15:15:21 by mabdelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ size_t	ft_strlen(const char *str)
 	return (len);
 }
 
-
 size_t	get_current_time(void)
 {
 	struct timeval	time;
@@ -36,7 +35,7 @@ size_t	get_current_time(void)
 int	ft_usleep(size_t milliseconds)
 {
 	size_t	start;
-    
+
 	start = get_current_time();
 	while ((get_current_time() - start) < milliseconds)
 		usleep(500);
