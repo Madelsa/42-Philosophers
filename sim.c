@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sim.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mahmoud <mahmoud@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mabdelsa <mabdelsa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:28:01 by mahmoud           #+#    #+#             */
-/*   Updated: 2024/03/14 11:35:50 by mahmoud          ###   ########.fr       */
+/*   Updated: 2024/03/15 14:53:52 by mabdelsa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ void eat (t_philo *philos)
     print_philo_status(philos, "TOOK_FORK");
     set_int(&philos->data->data_mutex, &philos->right_fork->fork_id, philos->id);
     set_int(&philos->data->data_mutex, &philos->left_fork->fork_id, philos->id);
-    // philos->right_fork->fork_id = philos->id;
-    // philos->left_fork->fork_id = philos->id;
     print_philo_status(philos, "TOOK_FORK");
     philos->left_fork->fork_id = philos->id;
     set_long(&philos->philos_mutex, &philos->last_meal, get_current_time());
